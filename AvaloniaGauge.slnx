@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AvaloniaGauge/AvaloniaGauge.csproj" Id="21312310-2a16-4de3-a7dd-04b750ca1e5d" />
+  <Project Path="src/AvaloniaGauge/AvaloniaGauge.Demo.csproj" />
+</Solution>

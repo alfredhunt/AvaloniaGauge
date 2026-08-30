@@ -1,0 +1,82 @@
+﻿<Window x:Class="AvaloniaGauge.Demo.Views.MainWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:AvaloniaGauge.Demo.ViewModels"
+        xmlns:controls="using:AvaloniaGauge.Controls"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        xmlns:views="using:AvaloniaGauge.Demo.Views"
+        x:DataType="vm:MainWindowViewModel"
+        mc:Ignorable="d"
+        Width="1920"
+        Height="1080"
+        Title="Avalonia Gauge Demo">
+
+    <Grid
+        ColumnDefinitions="*,*">
+
+        <!-- ============================================================= -->
+        <!-- PROPERTY EDITOR -->
+        <!-- ============================================================= -->
+
+        <Grid ColumnDefinitions="*,*"
+              RowDefinitions="Auto,*">
+
+            <views:DialProperties Grid.Row="0" Grid.Column="0" Margin="3"/>
+            <views:NeedleProperties Grid.Row="0" Grid.Column="1" Margin="3"/>
+            <views:RegionProperties Grid.Row="1" Grid.Column="0" Margin="3"/>
+            <views:MarkerProperties Grid.Row="1" Grid.Column="1" Margin="3"/>
+
+        </Grid>
+
+        <!-- ========================================================= -->
+        <!-- CENTER: ACTUAL TEMPLATED DIAL -->
+        <!-- ========================================================= -->
+
+        <Grid RowDefinitions="*,Auto,*" Grid.Column="1">
+            <GroupBox Grid.Row="0" Header="Avalonia Gauge" Margin="3">
+                <controls:Dial Minimum="{Binding Minimum}"
+                               Maximum="{Binding Maximum}"
+                               Value="{Binding Value}"
+                               StartAngle="{Binding StartAngle}"
+                               SweepAngle="{Binding SweepAngle}"
+                               RegionThickness="{Binding RegionThickness}"
+                               MarkerDistance="{Binding MarkerDistance}"
+                               TrackBrush="{Binding TrackBrush}"
+                               NeedleBrush="{Binding NeedleBrush}"
+                               NeedleThickness="{Binding NeedleThickness}"
+                               NeedleLength="{Binding NeedleLength}"
+                               NeedleTailLength="{Binding NeedleTailLength}"
+                               NeedleCenterRadius="{Binding NeedleCenterRadius}"
+                               Regions="{Binding Regions}"
+                               Markers="{Binding Markers}" />
+            </GroupBox>
+            <GridSplitter Grid.Row="1" Height="3"/>
+            <!-- ========================================================= -->
+            <!-- CENTER: AXAML Preview -->
+            <!-- ========================================================= -->
+
+            <GroupBox Grid.Row="2" Header="AXAML Preview" Margin="3">
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <TextBox Text="{Binding GeneratedAxaml}"
+                             IsReadOnly="True"
+                             AcceptsReturn="True"
+                             TextWrapping="NoWrap"
+                             FontFamily="Cascadia Mono"
+                             FontSize="13"
+                             BorderThickness="0"
+                             Padding="8" />
+
+                </ScrollViewer>
+            </GroupBox>
+        </Grid>
+
+
+
+
+    </Grid>
+</Window>

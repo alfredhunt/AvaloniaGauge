@@ -1,0 +1,128 @@
+<UserControl
+    x:Class="AvaloniaGauge.Demo.Views.DialProperties"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:AvaloniaGauge.Demo.ViewModels"
+    x:DataType="vm:MainWindowViewModel">
+
+    <GroupBox Header="Dial">
+        <Grid
+            Margin="10"
+            ColumnDefinitions="*,150"
+            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+            ColumnSpacing="10"
+            RowSpacing="8">
+
+            <!-- Row 0 -->
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="Value" />
+
+            <NumericUpDown
+                Grid.Row="0"
+                Grid.Column="1"
+                Minimum="{Binding Minimum}"
+                Maximum="{Binding Maximum}"
+                Value="{Binding Value}"
+                Increment="1" />
+
+            <!-- Row 1 -->
+
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="Minimum" />
+
+            <NumericUpDown
+                Grid.Row="1"
+                Grid.Column="1"
+                Value="{Binding Minimum}"
+                Increment="1" />
+
+
+            <!-- Row 2 -->
+
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="Maximum" />
+
+            <NumericUpDown
+                Grid.Row="2"
+                Grid.Column="1"
+                Value="{Binding Maximum}"
+                Increment="1" />
+
+            <!-- Row 3 -->
+
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="Start Angle" />
+
+            <NumericUpDown
+                Grid.Row="3"
+                Grid.Column="1"
+                Value="{Binding StartAngle}"
+                Minimum="-360"
+                Maximum="360"
+                Increment="1" />
+
+            <!-- Row 4 -->
+
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="Sweep Angle" />
+
+            <NumericUpDown
+                Grid.Row="4"
+                Grid.Column="1"
+                Value="{Binding SweepAngle}"
+                Minimum="0"
+                Maximum="360"
+                Increment="1" />
+
+            <!-- Row 5 -->
+
+            <TextBlock
+                Grid.Row="5"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="Region Thickness" />
+
+            <NumericUpDown
+                Grid.Row="5"
+                Grid.Column="1"
+                Value="{Binding RegionThickness}"
+                Minimum="1"
+                Maximum="100"
+                Increment="1" />
+
+            <!-- Row 6 -->
+
+            <TextBlock
+                Grid.Row="6"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Text="Marker Distance" />
+
+            <NumericUpDown
+                Grid.Row="6"
+                Grid.Column="1"
+                Value="{Binding MarkerDistance}"
+                Minimum="-100"
+                Maximum="100"
+                Increment="1" />
+
+        </Grid>
+    </GroupBox>
+
+</UserControl>

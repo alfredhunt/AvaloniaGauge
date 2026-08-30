@@ -1,0 +1,43 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:AvaloniaGauge.Controls">
+
+    <ControlTheme
+        x:Key="{x:Type controls:Dial}"
+        TargetType="controls:Dial">
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <controls:DialPresenter
+                    Minimum="{TemplateBinding Minimum}"
+                    Maximum="{TemplateBinding Maximum}"
+                    Value="{TemplateBinding Value}"
+
+                    StartAngle="{TemplateBinding StartAngle}"
+                    SweepAngle="{TemplateBinding SweepAngle}"
+
+                    RegionThickness="{TemplateBinding RegionThickness}"
+                    TrackBrush="{TemplateBinding TrackBrush}"
+
+                    NeedleBrush="{TemplateBinding NeedleBrush}"
+                    NeedleThickness="{TemplateBinding NeedleThickness}"
+                    NeedleLength="{TemplateBinding NeedleLength}"
+                    NeedleTailLength="{TemplateBinding NeedleTailLength}"
+                    NeedleCenterRadius="{TemplateBinding NeedleCenterRadius}"
+
+                    Regions="{TemplateBinding Regions}"
+                    Markers="{TemplateBinding Markers}"
+
+                    FontFamily="{TemplateBinding FontFamily}"
+                    FontSize="{TemplateBinding FontSize}"
+                    FontWeight="{TemplateBinding FontWeight}"
+                    FontStyle="{TemplateBinding FontStyle}"
+                    FontStretch="{TemplateBinding FontStretch}"
+                    Foreground="{TemplateBinding Foreground}" />
+            </ControlTemplate>
+        </Setter>
+
+    </ControlTheme>
+
+</ResourceDictionary>

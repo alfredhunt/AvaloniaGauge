@@ -1,0 +1,111 @@
+<UserControl x:Class="AvaloniaGauge.Demo.Views.RegionProperties"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaGauge.Demo.ViewModels"
+             x:DataType="vm:MainWindowViewModel"
+             x:Name="root">
+
+    <GroupBox Header="Regions">
+
+        <StackPanel
+            Margin="10"
+            Spacing="10">
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <Button
+                    Grid.Column="1"
+                    Content="+ Add"
+                    Command="{Binding AddRegionCommand}" />
+
+            </Grid>
+
+            <ItemsControl
+                ItemsSource="{Binding RegionEditors}">
+
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate
+                        x:DataType="vm:DialRegionViewModel">
+
+                        <Border Margin="0,4"
+                                Padding="10"
+                                BorderThickness="1"
+                                BorderBrush="#303030"
+                                CornerRadius="4">
+
+                            <Grid
+                                ColumnDefinitions="*,*,*,Auto"
+                                RowDefinitions="Auto,Auto"
+                                ColumnSpacing="4">
+
+                                <!-- Labels -->
+
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="Start"
+                                           Margin="0,0,4,2" />
+
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="End"
+                                           Margin="0,0,4,2" />
+
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="2"
+                                           Text="Color"
+                                           Margin="0,0,4,2" />
+
+
+                                <!-- Values -->
+
+                                <NumericUpDown Grid.Row="1"
+                                               Grid.Column="0"
+                                               Value="{Binding Start}"
+                                               Increment="1"
+                                               Margin="0,0,4,0" />
+
+                                <NumericUpDown Grid.Row="1"
+                                               Grid.Column="1"
+                                               Value="{Binding End}"
+                                               Increment="1"
+                                               Margin="0,0,4,0" />
+
+                                <Grid Grid.Row="1"
+                                      Grid.Column="2"
+                                      ColumnDefinitions="*,Auto"
+                                      ColumnSpacing="6">
+
+                                    <ColorPicker
+                                        Grid.Column="0"
+                                        Color="{Binding Color}" />
+
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding HexColor}" />
+
+                                </Grid>
+
+                                <Button Grid.Row="1"
+                                        Grid.Column="3"
+                                        Content="×"
+                                        Command="{Binding #root.DataContext.RemoveRegionCommand}"
+                                        CommandParameter="{Binding}"
+                                        Padding="8,2" />
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </StackPanel>
+
+    </GroupBox>
+
+</UserControl>

@@ -1,0 +1,155 @@
+<UserControl
+    x:Class="AvaloniaGauge.Demo.Views.MarkerProperties"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:AvaloniaGauge.Demo.ViewModels"
+    x:DataType="vm:MainWindowViewModel"
+    x:Name="root">
+
+    <GroupBox Header="Markers">
+
+        <StackPanel
+            Margin="10"
+            Spacing="10">
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <Button
+                    Grid.Column="1"
+                    Content="+ Add"
+                    Command="{Binding AddMarkerCommand}" />
+
+            </Grid>
+
+            <ItemsControl
+                ItemsSource="{Binding MarkerEditors}">
+
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate
+                        x:DataType="vm:DialMarkerViewModel">
+
+                        <Border
+                            Margin="0,4"
+                            Padding="10"
+                            BorderThickness="1"
+                            BorderBrush="#303030"
+                            CornerRadius="4">
+
+                            <Grid
+                                ColumnDefinitions="*,*,*,Auto"
+                                RowDefinitions="Auto,Auto,Auto,Auto"
+                                ColumnSpacing="4"
+                                RowSpacing="2">
+
+                                <!-- Labels -->
+
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Text="Value" />
+
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Text="Text" />
+
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Text="Placement" />
+
+
+                                <!-- Primary values -->
+
+                                <NumericUpDown
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Value="{Binding Value}"
+                                    Increment="1"
+                                    Margin="0,0,4,4" />
+
+                                <TextBox
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="{Binding Text}"
+                                    Margin="0,0,4,4" />
+
+                                <ComboBox
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    ItemsSource="{Binding Placements}"
+                                    SelectedItem="{Binding Placement}"
+                                    Margin="0,0,4,4" />
+
+                                <Button
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Content="×"
+                                    Command="{Binding #root.DataContext.RemoveMarkerCommand}"
+                                    CommandParameter="{Binding}"
+                                    Padding="8,2" />
+
+
+                                <!-- Secondary labels -->
+
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Text="Gap" />
+
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Text="Offset" />
+
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Text="Font Size" />
+
+
+                                <!-- Secondary values -->
+
+                                <NumericUpDown
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Value="{Binding Gap}"
+                                    Minimum="-100"
+                                    Maximum="100"
+                                    Increment="1"
+                                    Margin="0,0,4,0" />
+
+                                <NumericUpDown
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Value="{Binding Offset}"
+                                    Minimum="-100"
+                                    Maximum="100"
+                                    Increment="1"
+                                    Margin="0,0,4,0" />
+
+                                <NumericUpDown
+                                    Grid.Row="3"
+                                    Grid.Column="2"
+                                    Value="{Binding FontSize}"
+                                    Minimum="1"
+                                    Maximum="100"
+                                    Increment="1"
+                                    Margin="0,0,4,0" />
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </StackPanel>
+
+    </GroupBox>
+
+</UserControl>
