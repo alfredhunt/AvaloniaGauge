@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - main
-      - develop
 
 permissions:
   contents: read
@@ -20,17 +18,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: '10.x'
+          dotnet-version: 10.0.x
 
-      - name: Restore .NET workloads
+      - name: Restore WASM workload
         run: dotnet workload restore
 
-      - name: Restore dependencies
+      - name: Restore
         run: dotnet restore
 
       - name: Build
@@ -38,4 +36,3 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build --configuration Release
-
