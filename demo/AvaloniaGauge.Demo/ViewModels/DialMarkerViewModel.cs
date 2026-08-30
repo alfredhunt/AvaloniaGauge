@@ -17,8 +17,8 @@ public sealed class DialMarkerViewModel : ReactiveObject
     private double _offset;
     private bool _showLine = true;
     private double _lineThickness = 2;
-    private string _foreground = "#FFFFFF";
-    private string _lineColor = "#FFFFFF";
+    private Color _foreground = Colors.White;
+    private Color _lineColor = Colors.White;
     private double _fontSize = 14;
 
     public double Value
@@ -63,17 +63,35 @@ public sealed class DialMarkerViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _lineThickness, value);
     }
 
-    public string Foreground
+    public Color Foreground
     {
         get => _foreground;
-        set => this.RaiseAndSetIfChanged(ref _foreground, value);
+        set 
+        {
+            if (_foreground == value)
+                return;
+
+            this.RaiseAndSetIfChanged(ref _foreground, value);
+            this.RaisePropertyChanged(nameof(ForegroundHexColor));
+        }
     }
 
-    public string LineColor
+    public string ForegroundHexColor => $"#{Foreground.R:X2}{Foreground.G:X2}{Foreground.B:X2}";
+
+    public Color LineColor
     {
         get => _lineColor;
-        set => this.RaiseAndSetIfChanged(ref _lineColor, value);
+        set
+        {
+            if (_lineColor == value)
+                return;
+
+            this.RaiseAndSetIfChanged(ref _lineColor, value);
+            this.RaisePropertyChanged(nameof(LineColorHexColor));
+        }
     }
+
+    public string LineColorHexColor => $"#{LineColor.R:X2}{LineColor.G:X2}{LineColor.B:X2}";
 
     public double FontSize
     {
@@ -81,19 +99,8 @@ public sealed class DialMarkerViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _fontSize, value);
     }
 
-    public IBrush ForegroundBrush => ParseBrush(Foreground);
+    public IBrush ForegroundBrush => new SolidColorBrush(Foreground);
 
-    public IBrush LineBrush => ParseBrush(LineColor);
+    public IBrush LineBrush => new SolidColorBrush(LineColor);
 
-    private static IBrush ParseBrush(string value)
-    {
-        try
-        {
-            return Brush.Parse(value);
-        }
-        catch
-        {
-            return Brushes.Transparent;
-        }
-    }
 }

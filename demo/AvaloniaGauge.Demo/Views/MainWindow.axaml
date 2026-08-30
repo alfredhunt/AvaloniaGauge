@@ -25,8 +25,22 @@
 
             <views:DialProperties Grid.Row="0" Grid.Column="0" Margin="3"/>
             <views:NeedleProperties Grid.Row="0" Grid.Column="1" Margin="3"/>
-            <views:RegionProperties Grid.Row="1" Grid.Column="0" Margin="3"/>
-            <views:MarkerProperties Grid.Row="1" Grid.Column="1" Margin="3"/>
+            <ScrollViewer Grid.Row="1"
+                          Grid.Column="0"
+                          Margin="3"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto">
+                <views:RegionProperties />
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="1"
+                          Grid.Column="1"
+                          Margin="3"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto">
+                <views:MarkerProperties />
+            </ScrollViewer>
+
+
 
         </Grid>
 

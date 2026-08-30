@@ -1,10 +1,9 @@
-<UserControl
-    x:Class="AvaloniaGauge.Demo.Views.MarkerProperties"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vm="using:AvaloniaGauge.Demo.ViewModels"
-    x:DataType="vm:MainWindowViewModel"
-    x:Name="root">
+<UserControl x:Class="AvaloniaGauge.Demo.Views.MarkerProperties"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaGauge.Demo.ViewModels"
+             x:DataType="vm:MainWindowViewModel"
+             x:Name="root">
 
     <GroupBox Header="Markers">
 
@@ -29,18 +28,16 @@
                     <DataTemplate
                         x:DataType="vm:DialMarkerViewModel">
 
-                        <Border
-                            Margin="0,4"
-                            Padding="10"
-                            BorderThickness="1"
-                            BorderBrush="#303030"
-                            CornerRadius="4">
+                        <Border Margin="0,4"
+                                Padding="10"
+                                BorderThickness="1"
+                                BorderBrush="#303030"
+                                CornerRadius="4">
 
-                            <Grid
-                                ColumnDefinitions="*,*,*,Auto"
-                                RowDefinitions="Auto,Auto,Auto,Auto"
-                                ColumnSpacing="4"
-                                RowSpacing="2">
+                            <Grid ColumnDefinitions="*,*,*,Auto"
+                                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+                                  ColumnSpacing="4"
+                                  RowSpacing="2">
 
                                 <!-- Labels -->
 
@@ -62,33 +59,29 @@
 
                                 <!-- Primary values -->
 
-                                <NumericUpDown
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Value="{Binding Value}"
-                                    Increment="1"
-                                    Margin="0,0,4,4" />
+                                <NumericUpDown Grid.Row="1"
+                                               Grid.Column="0"
+                                               Value="{Binding Value}"
+                                               Increment="1"
+                                               Margin="0,0,4,4" />
 
-                                <TextBox
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Text="{Binding Text}"
-                                    Margin="0,0,4,4" />
+                                <TextBox Grid.Row="1"
+                                         Grid.Column="1"
+                                         Text="{Binding Text}"
+                                         Margin="0,0,4,4" />
 
-                                <ComboBox
-                                    Grid.Row="1"
-                                    Grid.Column="2"
-                                    ItemsSource="{Binding Placements}"
-                                    SelectedItem="{Binding Placement}"
-                                    Margin="0,0,4,4" />
+                                <ComboBox Grid.Row="1"
+                                          Grid.Column="2"
+                                          ItemsSource="{Binding Placements}"
+                                          SelectedItem="{Binding Placement}"
+                                          Margin="0,0,4,4" />
 
-                                <Button
-                                    Grid.Row="1"
-                                    Grid.Column="3"
-                                    Content="×"
-                                    Command="{Binding #root.DataContext.RemoveMarkerCommand}"
-                                    CommandParameter="{Binding}"
-                                    Padding="8,2" />
+                                <Button Grid.Row="1"
+                                        Grid.Column="3"
+                                        Content="×"
+                                        Command="{Binding #root.DataContext.RemoveMarkerCommand}"
+                                        CommandParameter="{Binding}"
+                                        Padding="8,2" />
 
 
                                 <!-- Secondary labels -->
@@ -111,32 +104,76 @@
 
                                 <!-- Secondary values -->
 
-                                <NumericUpDown
-                                    Grid.Row="3"
+                                <NumericUpDown Grid.Row="3"
+                                               Grid.Column="0"
+                                               Value="{Binding Gap}"
+                                               Minimum="-100"
+                                               Maximum="100"
+                                               Increment="1"
+                                               Margin="0,0,4,0" />
+
+                                <NumericUpDown Grid.Row="3"
+                                               Grid.Column="1"
+                                               Value="{Binding Offset}"
+                                               Minimum="-100"
+                                               Maximum="100"
+                                               Increment="1"
+                                               Margin="0,0,4,0" />
+
+                                <NumericUpDown Grid.Row="3"
+                                               Grid.Column="2"
+                                               Value="{Binding FontSize}"
+                                               Minimum="1"
+                                               Maximum="100"
+                                               Increment="1"
+                                               Margin="0,0,4,0" />
+
+                                <!-- ColorPicker Labels -->
+
+                                <TextBlock
+                                    Grid.Row="4"
                                     Grid.Column="0"
-                                    Value="{Binding Gap}"
-                                    Minimum="-100"
-                                    Maximum="100"
-                                    Increment="1"
-                                    Margin="0,0,4,0" />
+                                    Text="Foreground" />
 
-                                <NumericUpDown
-                                    Grid.Row="3"
+                                <TextBlock
+                                    Grid.Row="4"
                                     Grid.Column="1"
-                                    Value="{Binding Offset}"
-                                    Minimum="-100"
-                                    Maximum="100"
-                                    Increment="1"
-                                    Margin="0,0,4,0" />
+                                    Text="Linecolor" />
 
-                                <NumericUpDown
-                                    Grid.Row="3"
-                                    Grid.Column="2"
-                                    Value="{Binding FontSize}"
-                                    Minimum="1"
-                                    Maximum="100"
-                                    Increment="1"
-                                    Margin="0,0,4,0" />
+                                <Grid Grid.Row="5"
+                                      Grid.Column="0"
+                                      ColumnDefinitions="*,Auto"
+                                      ColumnSpacing="6">
+
+                                    <ColorPicker
+                                        Grid.Column="0"
+                                        Color="{Binding Foreground}" />
+
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding ForegroundHexColor}" />
+
+                                </Grid>
+
+                                <Grid Grid.Row="5"
+                                      Grid.Column="1"
+                                      ColumnDefinitions="*,Auto"
+                                      ColumnSpacing="6">
+
+                                    <ColorPicker
+                                        Grid.Column="0"
+                                        Color="{Binding LineColor}" />
+
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding ForegroundHexColor}" />
+
+                                </Grid>
+
+
+                                
 
                             </Grid>
 
