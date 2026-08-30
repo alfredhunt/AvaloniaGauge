@@ -25,6 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AvaloniaGauge\AvaloniaGauge.csproj" />
+    <ProjectReference Include="..\..\src\AvaloniaGauge\AvaloniaGauge.csproj" />
   </ItemGroup>
 </Project>

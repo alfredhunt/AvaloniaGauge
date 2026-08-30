@@ -10,8 +10,6 @@ using System.Linq;
 using System.Reactive;
 using System.Text;
 using System.Globalization;
-using System.Text;
-using Avalonia.Media;
 
 namespace AvaloniaGauge.Demo.ViewModels;
 
