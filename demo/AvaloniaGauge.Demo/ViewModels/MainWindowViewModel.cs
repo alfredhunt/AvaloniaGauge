@@ -19,9 +19,9 @@ public sealed class MainWindowViewModel : ReactiveObject
 
     public ReactiveCommand<Unit, Unit> AddMarkerCommand { get; }
 
-    public ReactiveCommand<DialRegionViewModel, Unit> RemoveRegionCommand { get; }
+    public ReactiveCommand<GaugeRegionViewModel, Unit> RemoveRegionCommand { get; }
 
-    public ReactiveCommand<DialMarkerViewModel, Unit> RemoveMarkerCommand { get; }
+    public ReactiveCommand<GaugeMarkerViewModel, Unit> RemoveMarkerCommand { get; }
 
     private double _minimum = 0;
     private double _maximum = 100;
@@ -41,8 +41,8 @@ public sealed class MainWindowViewModel : ReactiveObject
     private string _trackColor = "#303030";
     private string _needleColor = "#202020";
 
-    private AvaloniaList<DialRegion> _regions = [];
-    private AvaloniaList<DialMarker> _markers = [];
+    private AvaloniaList<GaugeRegion> _regions = [];
+    private AvaloniaList<GaugeMarker> _markers = [];
 
     public MainWindowViewModel()
     {
@@ -65,10 +65,10 @@ public sealed class MainWindowViewModel : ReactiveObject
         AddMarkerCommand = ReactiveCommand.Create(AddMarker);
 
         RemoveRegionCommand =
-            ReactiveCommand.Create<DialRegionViewModel>(RemoveRegion);
+            ReactiveCommand.Create<GaugeRegionViewModel>(RemoveRegion);
 
         RemoveMarkerCommand =
-            ReactiveCommand.Create<DialMarkerViewModel>(RemoveMarker);
+            ReactiveCommand.Create<GaugeMarkerViewModel>(RemoveMarker);
 
         BuildAxaml();
 
@@ -107,7 +107,7 @@ public sealed class MainWindowViewModel : ReactiveObject
     }
 
     // =====================================================================
-    // Dial properties
+    // Gauge properties
     // =====================================================================
 
     public double Minimum
@@ -208,9 +208,9 @@ public sealed class MainWindowViewModel : ReactiveObject
     // Region editor collection
     // =====================================================================
 
-    public ObservableCollection<DialRegionViewModel> RegionEditors { get; } = [];
+    public ObservableCollection<GaugeRegionViewModel> RegionEditors { get; } = [];
 
-    public AvaloniaList<DialRegion> Regions
+    public AvaloniaList<GaugeRegion> Regions
     {
         get => _regions;
         private set
@@ -231,7 +231,7 @@ public sealed class MainWindowViewModel : ReactiveObject
         foreach (var editor in RegionEditors)
         {
             Regions.Add(
-                new DialRegion
+                new GaugeRegion
                 {
                     Start = editor.Start,
                     End = editor.End,
@@ -245,9 +245,9 @@ public sealed class MainWindowViewModel : ReactiveObject
     // Marker editor collection
     // =====================================================================
 
-    public ObservableCollection<DialMarkerViewModel> MarkerEditors { get; } = [];
+    public ObservableCollection<GaugeMarkerViewModel> MarkerEditors { get; } = [];
 
-    public AvaloniaList<DialMarker> Markers
+    public AvaloniaList<GaugeMarker> Markers
     {
         get => _markers;
         private set
@@ -278,7 +278,7 @@ public sealed class MainWindowViewModel : ReactiveObject
                 start + (Maximum - Minimum) * 0.25);
 
         var region =
-            new DialRegionViewModel
+            new GaugeRegionViewModel
             {
                 Start = start,
                 End = end,
@@ -289,7 +289,7 @@ public sealed class MainWindowViewModel : ReactiveObject
     }
 
     public void RemoveRegion(
-        DialRegionViewModel region)
+        GaugeRegionViewModel region)
     {
         if (!RegionEditors.Remove(region))
             return;
@@ -302,18 +302,18 @@ public sealed class MainWindowViewModel : ReactiveObject
     public void AddMarker()
     {
         var marker =
-            new DialMarkerViewModel
+            new GaugeMarkerViewModel
             {
                 Value = Minimum,
                 Text = Minimum.ToString("0"),
-                Placement = DialMarkerPlacement.Outside
+                Placement = GaugeMarkerPlacement.Outside
             };
 
         MarkerEditors.Add(marker);
     }
 
     public void RemoveMarker(
-        DialMarkerViewModel marker)
+        GaugeMarkerViewModel marker)
     {
         if (!MarkerEditors.Remove(marker))
             return;
@@ -329,13 +329,13 @@ public sealed class MainWindowViewModel : ReactiveObject
     {
         if (e.OldItems is not null)
         {
-            foreach (DialRegionViewModel region in e.OldItems)
+            foreach (GaugeRegionViewModel region in e.OldItems)
                 region.PropertyChanged -= OnRegionPropertyChanged;
         }
 
         if (e.NewItems is not null)
         {
-            foreach (DialRegionViewModel region in e.NewItems)
+            foreach (GaugeRegionViewModel region in e.NewItems)
                 region.PropertyChanged += OnRegionPropertyChanged;
         }
 
@@ -349,13 +349,13 @@ public sealed class MainWindowViewModel : ReactiveObject
     {
         if (e.OldItems is not null)
         {
-            foreach (DialMarkerViewModel marker in e.OldItems)
+            foreach (GaugeMarkerViewModel marker in e.OldItems)
                 marker.PropertyChanged -= OnMarkerPropertyChanged;
         }
 
         if (e.NewItems is not null)
         {
-            foreach (DialMarkerViewModel marker in e.NewItems)
+            foreach (GaugeMarkerViewModel marker in e.NewItems)
                 marker.PropertyChanged += OnMarkerPropertyChanged;
         }
 
@@ -383,16 +383,16 @@ public sealed class MainWindowViewModel : ReactiveObject
     }
 
     // =====================================================================
-    // Dial collection generation
+    // Gauge collection generation
     // =====================================================================
 
     private void RebuildRegions()
     {
         Regions =
-            new AvaloniaList<DialRegion>(
+            new AvaloniaList<GaugeRegion>(
                 RegionEditors.Select(
                     region =>
-                        new DialRegion
+                        new GaugeRegion
                         {
                             Start = region.Start,
                             End = region.End,
@@ -404,10 +404,10 @@ public sealed class MainWindowViewModel : ReactiveObject
     private void RebuildMarkers()
     {
         Markers =
-            new AvaloniaList<DialMarker>(
+            new AvaloniaList<GaugeMarker>(
                 MarkerEditors.Select(
                     marker =>
-                        new DialMarker
+                        new GaugeMarker
                         {
                             Value = marker.Value,
                             Text = marker.Text,
@@ -445,7 +445,7 @@ public sealed class MainWindowViewModel : ReactiveObject
     private void AddInitialRegions()
     {
         RegionEditors.Add(
-            new DialRegionViewModel
+            new GaugeRegionViewModel
             {
                 Start = 0,
                 End = 30,
@@ -453,7 +453,7 @@ public sealed class MainWindowViewModel : ReactiveObject
             });
 
         RegionEditors.Add(
-            new DialRegionViewModel
+            new GaugeRegionViewModel
             {
                 Start = 30,
                 End = 70,
@@ -461,7 +461,7 @@ public sealed class MainWindowViewModel : ReactiveObject
             });
 
         RegionEditors.Add(
-            new DialRegionViewModel
+            new GaugeRegionViewModel
             {
                 Start = 70,
                 End = 100,
@@ -472,29 +472,29 @@ public sealed class MainWindowViewModel : ReactiveObject
     private void AddInitialMarkers()
     {
         MarkerEditors.Add(
-            new DialMarkerViewModel
+            new GaugeMarkerViewModel
             {
                 Value = 0,
                 Text = "0",
-                Placement = DialMarkerPlacement.Outside,
+                Placement = GaugeMarkerPlacement.Outside,
                 ShowLine = true
             });
 
         MarkerEditors.Add(
-            new DialMarkerViewModel
+            new GaugeMarkerViewModel
             {
                 Value = 50,
                 Text = "50",
-                Placement = DialMarkerPlacement.Outside,
+                Placement = GaugeMarkerPlacement.Outside,
                 ShowLine = true
             });
 
         MarkerEditors.Add(
-            new DialMarkerViewModel
+            new GaugeMarkerViewModel
             {
                 Value = 100,
                 Text = "100",
-                Placement = DialMarkerPlacement.Outside,
+                Placement = GaugeMarkerPlacement.Outside,
                 ShowLine = true
             });
     }
@@ -532,7 +532,7 @@ public sealed class MainWindowViewModel : ReactiveObject
     {
         var sb = new StringBuilder();
 
-        sb.AppendLine("<controls:Dial");
+        sb.AppendLine("<controls:Gauge");
         sb.AppendLine("    Minimum=\"{Binding Minimum}\"");
         sb.AppendLine("    Maximum=\"{Binding Maximum}\"");
         sb.AppendLine("    Value=\"{Binding Value}\"");
@@ -552,7 +552,7 @@ public sealed class MainWindowViewModel : ReactiveObject
         BuildMarkersAxaml(sb);
 
         sb.AppendLine();
-        sb.AppendLine("</controls:Dial>");
+        sb.AppendLine("</controls:Gauge>");
 
         GeneratedAxaml = sb.ToString();
     }
@@ -570,19 +570,19 @@ public sealed class MainWindowViewModel : ReactiveObject
             return;
 
         sb.AppendLine();
-        sb.AppendLine("    <controls:Dial.Regions>");
+        sb.AppendLine("    <controls:Gauge.Regions>");
 
         foreach (var region in RegionEditors)
         {
             sb.AppendLine();
-            sb.AppendLine("        <controls:DialRegion");
+            sb.AppendLine("        <controls:GaugeRegion");
             sb.AppendLine($"            Start=\"{Format(region.Start)}\"");
             sb.AppendLine($"            End=\"{Format(region.End)}\"");
             sb.AppendLine($"            Color=\"{region.HexColor}\" />");
         }
 
         sb.AppendLine();
-        sb.AppendLine("    </controls:Dial.Regions>");
+        sb.AppendLine("    </controls:Gauge.Regions>");
     }
 
     private static string BrushToHex(IBrush? brush)
@@ -605,12 +605,12 @@ public sealed class MainWindowViewModel : ReactiveObject
             return;
 
         sb.AppendLine();
-        sb.AppendLine("    <controls:Dial.Markers>");
+        sb.AppendLine("    <controls:Gauge.Markers>");
 
         foreach (var marker in MarkerEditors)
         {
             sb.AppendLine();
-            sb.AppendLine("        <controls:DialMarker");
+            sb.AppendLine("        <controls:GaugeMarker");
             sb.AppendLine($"            Value=\"{Format(marker.Value)}\"");
             sb.AppendLine($"            Text=\"{EscapeXml(marker.Text)}\"");
             sb.AppendLine($"            Placement=\"{marker.Placement}\"");
@@ -620,7 +620,7 @@ public sealed class MainWindowViewModel : ReactiveObject
         }
 
         sb.AppendLine();
-        sb.AppendLine("    </controls:Dial.Markers>");
+        sb.AppendLine("    </controls:Gauge.Markers>");
     }
 
     private static string EscapeXml(string? value)

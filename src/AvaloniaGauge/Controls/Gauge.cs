@@ -6,85 +6,85 @@ using System.Collections.Generic;
 
 namespace AvaloniaGauge.Controls;
 
-public class Dial : TemplatedControl
+public class Gauge : TemplatedControl
 {
     public static readonly StyledProperty<double> MinimumProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(Minimum),
             0);
 
     public static readonly StyledProperty<double> MaximumProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(Maximum),
             100);
 
     public static readonly StyledProperty<double> ValueProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(Value),
             0);
 
     public static readonly StyledProperty<double> StartAngleProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(StartAngle),
             135);
 
     public static readonly StyledProperty<double> SweepAngleProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(SweepAngle),
             270);
 
     public static readonly StyledProperty<double> RegionThicknessProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(RegionThickness),
             22);
 
     public static readonly StyledProperty<IBrush?> TrackBrushProperty =
-        AvaloniaProperty.Register<Dial, IBrush?>(
+        AvaloniaProperty.Register<Gauge, IBrush?>(
             nameof(TrackBrush));
 
     public static readonly StyledProperty<IBrush?> NeedleBrushProperty =
-        AvaloniaProperty.Register<Dial, IBrush?>(
+        AvaloniaProperty.Register<Gauge, IBrush?>(
             nameof(NeedleBrush));
 
     public static readonly StyledProperty<double> NeedleThicknessProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(NeedleThickness),
             4);
 
     public static readonly StyledProperty<double> NeedleLengthProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(NeedleLength),
             0.85);
 
     public static readonly StyledProperty<double> NeedleTailLengthProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(NeedleTailLength),
             0.12);
 
     public static readonly StyledProperty<double> NeedleCenterRadiusProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(NeedleCenterRadius),
             7);
 
     public static readonly StyledProperty<double> MarkerDistanceProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(MarkerDistance),
             0);
 
     public static readonly StyledProperty<double> MarkerMarginProperty =
-        AvaloniaProperty.Register<Dial, double>(
+        AvaloniaProperty.Register<Gauge, double>(
             nameof(MarkerMargin),
             24);
 
-    public static readonly StyledProperty<AvaloniaList<DialRegion>?> RegionsProperty =
-        AvaloniaProperty.Register<Dial, AvaloniaList<DialRegion>?>(
+    public static readonly StyledProperty<AvaloniaList<GaugeRegion>?> RegionsProperty =
+        AvaloniaProperty.Register<Gauge, AvaloniaList<GaugeRegion>?>(
             nameof(Regions),
-            defaultValue: new AvaloniaList<DialRegion>());
+            defaultValue: new AvaloniaList<GaugeRegion>());
 
-    public static readonly StyledProperty<AvaloniaList<DialMarker>?> MarkersProperty =
-        AvaloniaProperty.Register<Dial, AvaloniaList<DialMarker>?>(
+    public static readonly StyledProperty<AvaloniaList<GaugeMarker>?> MarkersProperty =
+        AvaloniaProperty.Register<Gauge, AvaloniaList<GaugeMarker>?>(
             nameof(Markers),
-            defaultValue: new AvaloniaList<DialMarker>());
+            defaultValue: new AvaloniaList<GaugeMarker>());
 
     public double Minimum
     {
@@ -170,13 +170,13 @@ public class Dial : TemplatedControl
         set => SetValue(MarkerMarginProperty, value);
     }
 
-    public IList<DialRegion>? Regions
+    public IList<GaugeRegion>? Regions
     {
         get => GetValue(RegionsProperty);
         set => SetValue(RegionsProperty, value);
     }
 
-    public IList<DialMarker>? Markers
+    public IList<GaugeMarker>? Markers
     {
         get => GetValue(MarkersProperty);
         set => SetValue(MarkersProperty, value);

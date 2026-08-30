@@ -2,15 +2,15 @@
 
 namespace AvaloniaGauge.Controls;
 
-public sealed class DialRegion
+public sealed class GaugeRegion
 {
     /// <summary>
-    /// Region start in the Dial's value space.
+    /// Region start in the Gauge's value space.
     /// </summary>
     public double Start { get; init; }
 
     /// <summary>
-    /// Region end in the Dial's value space.
+    /// Region end in the Gauge's value space.
     /// </summary>
     public double End { get; init; }
 
@@ -21,7 +21,7 @@ public sealed class DialRegion
 
     /// <summary>
     /// Region thickness.
-    /// A value less than or equal to zero uses the Dial's RegionThickness.
+    /// A value less than or equal to zero uses the Gauge's RegionThickness.
     /// </summary>
     public double Thickness { get; init; }
 }

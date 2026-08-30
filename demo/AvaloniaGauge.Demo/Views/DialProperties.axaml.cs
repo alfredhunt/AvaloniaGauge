@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AvaloniaGauge.Demo.Views
 {
-    public partial class DialProperties : UserControl
+    public partial class GaugeProperties : UserControl
     {
-        public DialProperties()
+        public GaugeProperties()
         {
             InitializeComponent();
         }

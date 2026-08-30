@@ -1,4 +1,14 @@
 <Solution>
+  <Folder Name="/.github/" />
+  <Folder Name="/.github/workflows/">
+    <File Path=".github/workflows/ci.yml" />
+    <File Path=".github/workflows/publish.yml" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="demo/AvaloniaGauge.Demo.Browser/AvaloniaGauge.Demo.Browser.csproj" Id="8345218e-48de-44df-8d32-3932e39f1163" />
+  <Project Path="demo/AvaloniaGauge.Demo.Desktop/AvaloniaGauge.Demo.Desktop.csproj" Id="3d7f7fe7-dda7-44dd-8693-e82e82413511" />
+  <Project Path="demo/AvaloniaGauge.Demo/AvaloniaGauge.Demo.csproj" Id="15eca289-b363-437a-b01b-94c791c2807a" />
   <Project Path="src/AvaloniaGauge/AvaloniaGauge.csproj" Id="21312310-2a16-4de3-a7dd-04b750ca1e5d" />
-  <Project Path="demo/AvaloniaGauge.Demo/AvaloniaGauge.Demo.csproj" />
 </Solution>

@@ -4,12 +4,12 @@
     xmlns:controls="using:AvaloniaGauge.Controls">
 
     <ControlTheme
-        x:Key="{x:Type controls:Dial}"
-        TargetType="controls:Dial">
+        x:Key="{x:Type controls:Gauge}"
+        TargetType="controls:Gauge">
 
         <Setter Property="Template">
             <ControlTemplate>
-                <controls:DialPresenter
+                <controls:GaugePresenter
                     Minimum="{TemplateBinding Minimum}"
                     Maximum="{TemplateBinding Maximum}"
                     Value="{TemplateBinding Value}"

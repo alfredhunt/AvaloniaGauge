@@ -5,14 +5,14 @@ using System;
 
 namespace AvaloniaGauge.Demo.ViewModels;
 
-public sealed class DialMarkerViewModel : ReactiveObject
+public sealed class GaugeMarkerViewModel : ReactiveObject
 {
     public Array Placements =>
-        Enum.GetValues<DialMarkerPlacement>();
+        Enum.GetValues<GaugeMarkerPlacement>();
 
     private double _value;
     private string _text = string.Empty;
-    private DialMarkerPlacement _placement = DialMarkerPlacement.Outside;
+    private GaugeMarkerPlacement _placement = GaugeMarkerPlacement.Outside;
     private double _gap;
     private double _offset;
     private bool _showLine = true;
@@ -33,7 +33,7 @@ public sealed class DialMarkerViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _text, value);
     }
 
-    public DialMarkerPlacement Placement
+    public GaugeMarkerPlacement Placement
     {
         get => _placement;
         set => this.RaiseAndSetIfChanged(ref _placement, value);
@@ -66,7 +66,7 @@ public sealed class DialMarkerViewModel : ReactiveObject
     public Color Foreground
     {
         get => _foreground;
-        set 
+        set
         {
             if (_foreground == value)
                 return;

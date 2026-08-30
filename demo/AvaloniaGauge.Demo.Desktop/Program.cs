@@ -1,8 +1,8 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using ReactiveUI.Avalonia;
-using System;
 
-namespace AvaloniaGauge.Demo;
+namespace AvaloniaGauge.Demo.Desktop;
 
 sealed class Program
 {
@@ -17,10 +17,7 @@ sealed class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
-#if DEBUG
-            .WithDeveloperTools()
-#endif
             .WithInterFont()
-            .LogToTrace()
-            .UseReactiveUI(_ => { });
+            .UseReactiveUI(_ => { })
+            .LogToTrace();
 }

@@ -2,23 +2,26 @@
 
 A customizable, resizable gauge control for [Avalonia UI](https://avaloniaui.net/) applications.
 
-AvaloniaGauge provides a reusable `Dial` control with configurable value ranges, colored regions, value markers, marker positioning, typography, and a customizable needle.
+AvaloniaGauge provides a reusable `Gauge` control with configurable value ranges, colored regions, value markers, marker positioning, typography, colors, and a customizable needle.
+
+<p align="left">
+  <img src="docs/images/ui.png" alt="AvaloniaGauge Demo" width="1200">
+</p>
 
 ## Features
 
-* Resizes automatically to the space provided by its parent
-* Configurable minimum and maximum values
-* Configurable current value
+* Automatically resizes to the space provided by its parent
+* Configurable minimum, maximum, and current values
 * Configurable start and sweep angles
-* Colored gauge regions
+* Customizable colored gauge regions
 * Configurable region thickness
 * Value markers
-* Marker text positioned:
+* Marker placement:
 
-  * Inside the gauge
-  * Centered on the gauge
-  * Outside the gauge
-* Marker gap and radial offset
+  * Inside
+  * Center
+  * Outside
+* Marker gap and raGauge offset
 * Custom marker typography
 * Custom marker text colors
 * Optional marker lines
@@ -27,7 +30,7 @@ AvaloniaGauge provides a reusable `Dial` control with configurable value ranges,
 * Configurable track brush
 * MVVM-friendly property binding
 * Dynamic regions and markers
-* Templated Avalonia control
+* Avalonia `TemplatedControl` architecture
 * Interactive demonstration application
 * AXAML configuration generation in the demo
 
@@ -36,23 +39,21 @@ AvaloniaGauge provides a reusable `Dial` control with configurable value ranges,
 * .NET 10
 * Avalonia UI 12.x
 
-Avalonia 12 currently supports `net10.0`.
-
 ## Installation
 
-Install the package from NuGet:
+Install AvaloniaGauge from NuGet:
 
 ```powershell
 dotnet add package AvaloniaGauge
 ```
 
-Or add it directly to your project:
+Or add the package reference directly to your project:
 
 ```xml
 <PackageReference Include="AvaloniaGauge" Version="1.0.0" />
 ```
 
-Use the current published package version in place of `1.0.0`.
+Replace `1.0.0` with the current published version.
 
 ## Basic Usage
 
@@ -62,10 +63,10 @@ Import the control namespace:
 xmlns:controls="using:AvaloniaGauge.Controls"
 ```
 
-A complete example:
+A complete gauge configuration:
 
 ```xml
-<controls:Dial
+<controls:Gauge
     Minimum="{Binding Minimum}"
     Maximum="{Binding Maximum}"
     Value="{Binding Value}"
@@ -81,28 +82,28 @@ A complete example:
     NeedleTailLength="0.12"
     NeedleCenterRadius="7">
 
-    <controls:Dial.Regions>
+    <controls:Gauge.Regions>
 
-        <controls:DialRegion
+        <controls:GaugeRegion
             Start="0"
             End="30"
             Color="#008000" />
 
-        <controls:DialRegion
+        <controls:GaugeRegion
             Start="30"
             End="70"
             Color="#FFFF00" />
 
-        <controls:DialRegion
+        <controls:GaugeRegion
             Start="70"
             End="100"
             Color="#FF0000" />
 
-    </controls:Dial.Regions>
+    </controls:Gauge.Regions>
 
-    <controls:Dial.Markers>
+    <controls:Gauge.Markers>
 
-        <controls:DialMarker
+        <controls:GaugeMarker
             Value="0"
             Text="0"
             Placement="Outside"
@@ -110,7 +111,7 @@ A complete example:
             Offset="0"
             FontSize="14" />
 
-        <controls:DialMarker
+        <controls:GaugeMarker
             Value="50"
             Text="50"
             Placement="Outside"
@@ -118,7 +119,7 @@ A complete example:
             Offset="0"
             FontSize="14" />
 
-        <controls:DialMarker
+        <controls:GaugeMarker
             Value="100"
             Text="100"
             Placement="Outside"
@@ -126,41 +127,47 @@ A complete example:
             Offset="0"
             FontSize="14" />
 
-    </controls:Dial.Markers>
+    </controls:Gauge.Markers>
 
-</controls:Dial>
+</controls:Gauge>
 ```
 
-The `Dial` does not require an explicit `Width` or `Height`. It sizes itself based on the space provided by its parent container.
+### Automatic Sizing
 
-For example:
+The `Gauge` does not require an explicit `Width` or `Height`.
+
+It automatically sizes itself based on the space provided by its parent container.
 
 ```xml
 <Grid>
-    <controls:Dial
+    <controls:Gauge
         Minimum="0"
         Maximum="100"
         Value="65" />
 </Grid>
 ```
 
-## Dial Properties
+This allows the control to be placed into different layouts without requiring fixed dimensions.
+
+---
+
+## Gauge Properties
 
 | Property             | Description                                       |
 | -------------------- | ------------------------------------------------- |
 | `Minimum`            | Minimum value represented by the gauge            |
 | `Maximum`            | Maximum value represented by the gauge            |
-| `Value`              | Current value                                     |
+| `Value`              | Current gauge value                               |
 | `StartAngle`         | Starting angle of the gauge                       |
 | `SweepAngle`         | Angular range of the gauge                        |
-| `RegionThickness`    | Default thickness of the gauge regions            |
+| `RegionThickness`    | Default thickness of gauge regions                |
 | `MarkerDistance`     | Default marker distance                           |
 | `TrackBrush`         | Brush used for the gauge track                    |
 | `NeedleBrush`        | Brush used for the needle                         |
 | `NeedleThickness`    | Needle thickness                                  |
 | `NeedleLength`       | Needle length as a proportion of the gauge radius |
 | `NeedleTailLength`   | Needle length extending behind the center         |
-| `NeedleCenterRadius` | Radius of the center of the needle                |
+| `NeedleCenterRadius` | Radius of the needle center                       |
 
 ### Angles
 
@@ -171,64 +178,75 @@ For example:
 For example:
 
 ```xml
-<controls:Dial
+<controls:Gauge
     StartAngle="225"
     SweepAngle="270" />
 ```
 
 creates a 270-degree gauge beginning at 225 degrees.
 
+---
+
 ## Regions
 
 Regions divide the gauge into colored value ranges.
 
 ```xml
-<controls:Dial.Regions>
+<controls:Gauge.Regions>
 
-    <controls:DialRegion
+    <controls:GaugeRegion
         Start="0"
         End="30"
         Color="#008000" />
 
-    <controls:DialRegion
+    <controls:GaugeRegion
         Start="30"
         End="70"
         Color="#FFFF00" />
 
-    <controls:DialRegion
+    <controls:GaugeRegion
         Start="70"
         End="100"
         Color="#FF0000" />
 
-</controls:Dial.Regions>
+</controls:Gauge.Regions>
 ```
 
-Each region specifies:
+Each `GaugeRegion` specifies:
 
-* `Start`
-* `End`
-* `Color`
+| Property    | Description                        |
+| ----------- | ---------------------------------- |
+| `Start`     | Starting value of the region       |
+| `End`       | Ending value of the region         |
+| `Color`     | Region color                       |
+| `Thickness` | Optional region-specific thickness |
 
-A region can optionally override the default gauge thickness:
+### Region Thickness
+
+By default, a region uses the `Gauge.RegionThickness` value.
+
+A region can override the default:
 
 ```xml
-<controls:DialRegion
+<controls:GaugeRegion
     Start="0"
     End="30"
     Color="#008000"
     Thickness="28" />
 ```
 
-If a region does not specify its own thickness, the `Dial.RegionThickness` value is used.
+If `Thickness` is not specified, the Gauge's `RegionThickness` is used.
+
+---
 
 ## Markers
 
 Markers place text at specific values around the gauge.
 
 ```xml
-<controls:Dial.Markers>
+<controls:Gauge.Markers>
 
-    <controls:DialMarker
+    <controls:GaugeMarker
         Value="0"
         Text="0"
         Placement="Outside"
@@ -236,7 +254,7 @@ Markers place text at specific values around the gauge.
         Offset="0"
         FontSize="14" />
 
-    <controls:DialMarker
+    <controls:GaugeMarker
         Value="50"
         Text="50"
         Placement="Outside"
@@ -244,7 +262,7 @@ Markers place text at specific values around the gauge.
         Offset="0"
         FontSize="14" />
 
-    <controls:DialMarker
+    <controls:GaugeMarker
         Value="100"
         Text="100"
         Placement="Outside"
@@ -252,8 +270,27 @@ Markers place text at specific values around the gauge.
         Offset="0"
         FontSize="14" />
 
-</controls:Dial.Markers>
+</controls:Gauge.Markers>
 ```
+
+### Marker Properties
+
+| Property        | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `Value`         | Value at which the marker is positioned          |
+| `Text`          | Text displayed by the marker                     |
+| `Placement`     | Position relative to the gauge region            |
+| `Gap`           | Distance between the marker and the gauge region |
+| `Offset`        | Additional raGauge offset                         |
+| `FontFamily`    | Marker font family                               |
+| `FontSize`      | Marker font size                                 |
+| `FontWeight`    | Marker font weight                               |
+| `FontStyle`     | Marker font style                                |
+| `FontStretch`   | Marker font stretch                              |
+| `Foreground`    | Marker text color                                |
+| `ShowLine`      | Enables the marker line                          |
+| `LineThickness` | Marker line thickness                            |
+| `LineBrush`     | Marker line color                                |
 
 ### Marker Placement
 
@@ -271,14 +308,14 @@ Placement="Center"
 Placement="Outside"
 ```
 
-This controls whether the marker text is placed inside the region, centered on the region, or outside the region.
+These positions place the marker text inside the gauge region, centered on the region, or outside the region.
 
 ### Marker Gap
 
 `Gap` controls the distance between the marker and the gauge region.
 
 ```xml
-<controls:DialMarker
+<controls:GaugeMarker
     Value="50"
     Text="50"
     Placement="Outside"
@@ -287,10 +324,10 @@ This controls whether the marker text is placed inside the region, centered on t
 
 ### Marker Offset
 
-`Offset` provides additional radial positioning after the placement and gap have been calculated.
+`Offset` provides an additional raGauge adjustment after placement and gap have been calculated.
 
 ```xml
-<controls:DialMarker
+<controls:GaugeMarker
     Value="50"
     Text="50"
     Placement="Outside"
@@ -298,12 +335,14 @@ This controls whether the marker text is placed inside the region, centered on t
     Offset="4" />
 ```
 
+---
+
 ## Marker Text Styling
 
-Markers support individual font settings, allowing different markers to have different appearances.
+Markers support individual font settings and text colors.
 
 ```xml
-<controls:DialMarker
+<controls:GaugeMarker
     Value="50"
     Text="50"
     Placement="Outside"
@@ -312,7 +351,7 @@ Markers support individual font settings, allowing different markers to have dif
     Foreground="White" />
 ```
 
-Supported marker typography includes:
+Supported typography properties include:
 
 * `FontFamily`
 * `FontSize`
@@ -321,14 +360,16 @@ Supported marker typography includes:
 * `FontStretch`
 * `Foreground`
 
-Marker-specific settings override the corresponding default settings.
+Marker-specific settings can be used to give individual markers different appearances.
+
+---
 
 ## Marker Lines
 
 Markers can optionally display a line through the gauge region.
 
 ```xml
-<controls:DialMarker
+<controls:GaugeMarker
     Value="50"
     Text="50"
     Placement="Outside"
@@ -337,14 +378,20 @@ Markers can optionally display a line through the gauge region.
     LineBrush="White" />
 ```
 
-Marker lines use the thickness of the applicable gauge region when determining where the line begins and ends.
+Marker lines can be independently configured for:
+
+* Visibility
+* Thickness
+* Color
+
+---
 
 ## Needle
 
 The needle can be independently configured.
 
 ```xml
-<controls:Dial
+<controls:Gauge
     Value="65"
     NeedleThickness="4"
     NeedleLength="0.85"
@@ -362,22 +409,33 @@ The needle can be independently configured.
 1.0 = full gauge radius
 ```
 
+For example:
+
+```xml
+<controls:Gauge
+    NeedleLength="0.85" />
+```
+
+creates a needle extending to 85% of the available gauge radius.
+
 ### Needle Tail
 
 `NeedleTailLength` controls the portion of the needle extending behind the center.
 
 ```xml
-<controls:Dial
+<controls:Gauge
     NeedleLength="0.85"
     NeedleTailLength="0.12" />
 ```
 
+---
+
 ## MVVM
 
-All primary dial properties can be bound from a view model.
+The primary Gauge properties can be bound directly to a view model.
 
 ```xml
-<controls:Dial
+<controls:Gauge
     Minimum="{Binding Minimum}"
     Maximum="{Binding Maximum}"
     Value="{Binding Value}"
@@ -391,31 +449,37 @@ All primary dial properties can be bound from a view model.
     NeedleCenterRadius="{Binding NeedleCenterRadius}" />
 ```
 
-Regions and markers can also be supplied from view-model collections.
+Regions and markers can also be supplied from view-model collections:
 
 ```xml
-<controls:Dial
+<controls:Gauge
     Regions="{Binding Regions}"
     Markers="{Binding Markers}" />
 ```
 
 This allows the gauge configuration to be generated and modified dynamically at runtime.
 
+---
+
 ## Dynamic Regions and Markers
 
-Regions and markers are designed to work with collections, allowing applications to add, remove, and modify them dynamically.
+Regions and markers are collection-based and can be added, removed, or modified at runtime.
 
-For example, a view model can maintain a collection of regions and add a new region at runtime.
+For example, an application can maintain a collection of regions based on application-specific thresholds and update that collection as those thresholds change.
 
-The `Dial` updates its rendering when its configuration changes.
+The `Gauge` responds to changes to its region and marker collections and updates its rendering accordingly.
+
+This makes the control suitable for applications where gauge configuration is data-driven rather than fixed in AXAML.
+
+---
 
 ## Demo Application
 
-The repository contains a demo application that provides an interactive editor for the gauge.
+The repository contains an interactive demo application for configuring and exploring the gauge.
 
-The demo allows the user to modify:
+The demo provides editable sections for:
 
-### Dial
+### Gauge
 
 * Minimum
 * Maximum
@@ -452,23 +516,31 @@ The demo allows the user to modify:
 * Offset
 * Font size
 * Text color
-* Marker line color
 * Marker line settings
+* Marker line color
 
-The demo also displays the corresponding AXAML configuration so that a configuration created interactively can be copied into another Avalonia application.
+Changes made in the editor are reflected immediately in the gauge.
+
+The demo also generates the corresponding AXAML configuration, allowing a configuration created interactively to be copied directly into another Avalonia application.
+
+---
 
 ## Project Structure
 
 ```text
 AvaloniaGauge/
+├── docs/
+│   └── images/
+│       └── demo.png
+│
 ├── src/
 │   └── AvaloniaGauge/
 │       ├── Controls/
-│       │   ├── Dial.axaml
-│       │   ├── Dial.axaml.cs
-│       │   ├── DialPresenter.cs
-│       │   ├── DialRegion.cs
-│       │   └── DialMarker.cs
+│       │   ├── Gauge.axaml
+│       │   ├── Gauge.axaml.cs
+│       │   ├── GaugePresenter.cs
+│       │   ├── GaugeRegion.cs
+│       │   └── GaugeMarker.cs
 │       │
 │       └── Themes/
 │           └── Generic.axaml
@@ -479,34 +551,53 @@ AvaloniaGauge/
 │       ├── Views/
 │       └── App.axaml
 │
+├── LICENSE
 └── README.md
 ```
 
-The library project contains the reusable control.
+The library project contains the reusable control and its Avalonia resources.
 
-The demo project is separate from the library and exists to demonstrate the control and provide an interactive configuration environment.
+The demo project is separate from the library and provides the interactive configuration environment.
+
+---
 
 ## Architecture
 
 AvaloniaGauge uses Avalonia's `TemplatedControl` architecture.
 
-`Dial` is the public control that applications interact with.
+`Gauge` is the public control that applications interact with.
 
-The control template is defined in the library's default theme, while rendering is handled by the presenter used by that template.
+The control's default template is provided by the library's `Themes/Generic.axaml` resource.
 
-Applications using the control do not need to interact directly with the presenter.
+Rendering is handled by the control's rendering implementation rather than by application code.
+
+Applications using AvaloniaGauge interact with the public `Gauge`, `GaugeRegion`, and `GaugeMarker` APIs and do not need to interact directly with the internal rendering implementation.
+
+---
 
 ## Building from Source
 
-Clone the repository and build the solution:
+Clone the repository:
 
 ```powershell
 git clone https://github.com/alfredhunt/AvaloniaGauge.git
+```
+
+Change to the repository directory:
+
+```powershell
 cd AvaloniaGauge
+```
+
+Build the solution:
+
+```powershell
 dotnet build
 ```
 
-Run the demo application using the appropriate project for the repository layout.
+The repository contains both the reusable control library and the demonstration application.
+
+---
 
 ## NuGet Package
 
@@ -516,14 +607,20 @@ AvaloniaGauge is distributed as a NuGet package.
 <PackageReference Include="AvaloniaGauge" Version="1.0.0" />
 ```
 
-The package is intended to contain only the reusable control library and its required Avalonia resources. The demo application is not part of the package.
+The NuGet package contains the reusable AvaloniaGauge control and its required Avalonia resources.
+
+The demonstration application is not included in the package.
+
+---
 
 ## Contributing
 
 Issues and pull requests are welcome.
 
-When submitting changes, please include a corresponding update to the demo application when the change affects the public control API or visual behavior.
+When submitting changes that affect the public control API or visual behavior, please update the demo application as appropriate so the new functionality can be demonstrated and tested.
+
+---
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+AvaloniaGauge is licensed under the MIT License. See [LICENSE](LICENSE) for details.

@@ -2,17 +2,17 @@
 
 namespace AvaloniaGauge.Controls;
 
-public sealed class DialMarker
+public sealed class GaugeMarker
 {
     public double Value { get; set; }
 
     public string Text { get; set; } = string.Empty;
 
-    public DialMarkerPlacement Placement { get; set; } =
-        DialMarkerPlacement.Outside;
+    public GaugeMarkerPlacement Placement { get; set; } =
+        GaugeMarkerPlacement.Outside;
 
     /// <summary>
-    /// Additional radial distance from the selected placement.
+    /// Additional raGauge distance from the selected placement.
     /// Positive values move farther from the gauge center.
     /// Negative values move toward the gauge center.
     /// </summary>

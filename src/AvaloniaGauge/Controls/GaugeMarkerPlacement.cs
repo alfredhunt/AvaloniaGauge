@@ -1,6 +1,6 @@
 ﻿namespace AvaloniaGauge.Controls;
 
-public enum DialMarkerPlacement
+public enum GaugeMarkerPlacement
 {
     Center,
     Inside,

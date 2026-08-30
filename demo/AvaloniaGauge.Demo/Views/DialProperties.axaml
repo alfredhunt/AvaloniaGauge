@@ -1,11 +1,11 @@
 <UserControl
-    x:Class="AvaloniaGauge.Demo.Views.DialProperties"
+    x:Class="AvaloniaGauge.Demo.Views.GaugeProperties"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vm="using:AvaloniaGauge.Demo.ViewModels"
     x:DataType="vm:MainWindowViewModel">
 
-    <GroupBox Header="Dial">
+    <GroupBox Header="Gauge">
         <Grid
             Margin="10"
             ColumnDefinitions="*,150"

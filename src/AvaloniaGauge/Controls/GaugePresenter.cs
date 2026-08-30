@@ -9,86 +9,86 @@ using System.Globalization;
 
 namespace AvaloniaGauge.Controls;
 
-public sealed class DialPresenter : TemplatedControl
+public sealed class GaugePresenter : TemplatedControl
 {
     public static readonly StyledProperty<double> MinimumProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(Minimum),
             0);
 
     public static readonly StyledProperty<double> MaximumProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(Maximum),
             100);
 
     public static readonly StyledProperty<double> ValueProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(Value),
             0);
 
     public static readonly StyledProperty<double> StartAngleProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(StartAngle),
             135);
 
     public static readonly StyledProperty<double> SweepAngleProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(SweepAngle),
             270);
 
     public static readonly StyledProperty<double> RegionThicknessProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(RegionThickness),
             22);
 
     public static readonly StyledProperty<IBrush?> TrackBrushProperty =
-        AvaloniaProperty.Register<DialPresenter, IBrush?>(
+        AvaloniaProperty.Register<GaugePresenter, IBrush?>(
             nameof(TrackBrush));
 
     public static readonly StyledProperty<IBrush?> NeedleBrushProperty =
-        AvaloniaProperty.Register<DialPresenter, IBrush?>(
+        AvaloniaProperty.Register<GaugePresenter, IBrush?>(
             nameof(NeedleBrush));
 
     public static readonly StyledProperty<double> NeedleThicknessProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(NeedleThickness),
             4);
 
     public static readonly StyledProperty<double> NeedleLengthProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(NeedleLength),
             0.85);
 
     public static readonly StyledProperty<double> NeedleTailLengthProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(NeedleTailLength),
             0.12);
 
     public static readonly StyledProperty<double> NeedleCenterRadiusProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(NeedleCenterRadius),
             7);
 
     public static readonly StyledProperty<double> MarkerDistanceProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(MarkerDistance),
             0);
 
     /// <summary>
-    /// Reserves space between the dial geometry and the edge of the control
+    /// Reserves space between the Gauge geometry and the edge of the control
     /// for markers positioned outside the colored region.
     /// </summary>
     public static readonly StyledProperty<double> MarkerMarginProperty =
-        AvaloniaProperty.Register<DialPresenter, double>(
+        AvaloniaProperty.Register<GaugePresenter, double>(
             nameof(MarkerMargin),
             24);
 
-    public static readonly StyledProperty<IList<DialRegion>?> RegionsProperty =
-        AvaloniaProperty.Register<DialPresenter, IList<DialRegion>?>(
+    public static readonly StyledProperty<IList<GaugeRegion>?> RegionsProperty =
+        AvaloniaProperty.Register<GaugePresenter, IList<GaugeRegion>?>(
             nameof(Regions));
 
-    public static readonly StyledProperty<IList<DialMarker>?> MarkersProperty =
-        AvaloniaProperty.Register<DialPresenter, IList<DialMarker>?>(
+    public static readonly StyledProperty<IList<GaugeMarker>?> MarkersProperty =
+        AvaloniaProperty.Register<GaugePresenter, IList<GaugeMarker>?>(
             nameof(Markers));
 
     private readonly List<CachedRegion> _regions = new();
@@ -192,13 +192,13 @@ public sealed class DialPresenter : TemplatedControl
         set => SetValue(MarkerMarginProperty, value);
     }
 
-    public IList<DialRegion>? Regions
+    public IList<GaugeRegion>? Regions
     {
         get => GetValue(RegionsProperty);
         set => SetValue(RegionsProperty, value);
     }
 
-    public IList<DialMarker>? Markers
+    public IList<GaugeMarker>? Markers
     {
         get => GetValue(MarkersProperty);
         set => SetValue(MarkersProperty, value);
@@ -220,7 +220,7 @@ public sealed class DialPresenter : TemplatedControl
             UnsubscribeRegions();
 
             SubscribeRegions(
-                change.GetNewValue<IList<DialRegion>?>());
+                change.GetNewValue<IList<GaugeRegion>?>());
 
             InvalidateCache();
             return;
@@ -231,7 +231,7 @@ public sealed class DialPresenter : TemplatedControl
             UnsubscribeMarkers();
 
             SubscribeMarkers(
-                change.GetNewValue<IList<DialMarker>?>());
+                change.GetNewValue<IList<GaugeMarker>?>());
 
             InvalidateCache();
             return;
@@ -320,7 +320,7 @@ public sealed class DialPresenter : TemplatedControl
             return;
 
         /*
-         * MarkerMargin deliberately reduces the usable dial diameter.
+         * MarkerMargin deliberately reduces the usable Gauge diameter.
          *
          * This gives outside markers physical room inside the control
          * instead of allowing their text to be clipped by the bounds.
@@ -582,7 +582,7 @@ public sealed class DialPresenter : TemplatedControl
     }
 
     private double GetMarkerTextRadius(
-        DialMarker marker)
+        GaugeMarker marker)
     {
         var halfThickness =
             Math.Max(
@@ -600,14 +600,14 @@ public sealed class DialPresenter : TemplatedControl
         var radius =
             marker.Placement switch
             {
-                DialMarkerPlacement.Inside =>
+                GaugeMarkerPlacement.Inside =>
                     innerRadius -
                     marker.Gap,
 
-                DialMarkerPlacement.Center =>
+                GaugeMarkerPlacement.Center =>
                     _trackRadius,
 
-                DialMarkerPlacement.Outside =>
+                GaugeMarkerPlacement.Outside =>
                     outerRadius +
                     marker.Gap,
 
@@ -616,7 +616,7 @@ public sealed class DialPresenter : TemplatedControl
             };
 
         /*
-         * MarkerDistance is retained as the global radial adjustment.
+         * MarkerDistance is retained as the global raGauge adjustment.
          *
          * Offset is the marker-specific adjustment.
          */
@@ -628,7 +628,7 @@ public sealed class DialPresenter : TemplatedControl
     }
 
     private MarkerLine BuildMarkerLine(
-        DialMarker marker,
+        GaugeMarker marker,
         double angle,
         double fraction,
         IBrush? fallbackBrush)
@@ -1021,7 +1021,7 @@ public sealed class DialPresenter : TemplatedControl
     }
 
     private void SubscribeRegions(
-        IList<DialRegion>? regions)
+        IList<GaugeRegion>? regions)
     {
         if (regions is not INotifyCollectionChanged collection)
             return;
@@ -1044,7 +1044,7 @@ public sealed class DialPresenter : TemplatedControl
     }
 
     private void SubscribeMarkers(
-        IList<DialMarker>? markers)
+        IList<GaugeMarker>? markers)
     {
         if (markers is not INotifyCollectionChanged collection)
             return;

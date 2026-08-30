@@ -3,14 +3,14 @@ using ReactiveUI;
 
 namespace AvaloniaGauge.Demo.ViewModels;
 
-public sealed class DialRegionViewModel : ReactiveObject
+public sealed class GaugeRegionViewModel : ReactiveObject
 {
     private double _start;
     private double _end;
     private Color _color;
     private double _thickness;
 
-    public DialRegionViewModel(
+    public GaugeRegionViewModel(
         double start = 0,
         double end = 100,
         Color color = default,
@@ -21,7 +21,7 @@ public sealed class DialRegionViewModel : ReactiveObject
         _color = color;
         _thickness = thickness;
     }
-        public double Start
+    public double Start
     {
         get => _start;
         set => this.RaiseAndSetIfChanged(ref _start, value);
